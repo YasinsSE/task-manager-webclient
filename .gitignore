@@ -32,5 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-logs/2024-09/
+# Ignore all files inside the logs/2024-09 directory
+logs/2024-09/*
 
+# Ensure that the logs directory is not ignored
+!logs/
