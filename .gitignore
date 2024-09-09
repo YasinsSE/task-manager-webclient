@@ -35,5 +35,6 @@ build/
 # Ignore all files inside the logs/2024-09 directory
 logs/2024-09/*
 
-# Ensure that the logs directory is not ignored
+# Ensure that the logs directory and its subdirectories are not ignored
 !logs/
+!logs/2024-09/
