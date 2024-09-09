@@ -1,0 +1,44 @@
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 20
+        minimumNumberOfCalls: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 15s
+        failureRateThreshold: 50
+        slowCallRateThreshold: 80
+        slowCallDurationThreshold: 30000
+        eventConsumerBufferSize: 20
+        registerHealthIndicator: true
+        recordExceptions:
+          - org.springframework.web.reactive.function.client.WebClientRequestException
+          - java.lang.RuntimeException
+          - java.lang.Throwable
+    instances:
+      taskManagerService:
+        baseConfig: default
+  retry:
+    instances:
+      taskManagerService:
+        maxAttempts: 10
+        waitDuration: 10s
+
+
+
